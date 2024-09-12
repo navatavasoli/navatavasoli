@@ -1,0 +1,168 @@
+# ICS201 CPT Part 1
+# Nava Tavasoli
+# June 23, 2021
+
+# importing Pygame, random, and time
+import pygame
+import random
+import time
+
+# initialization of Pygame, creating display screen, and captioning it
+pygame.init()
+WIDTH = 900
+HEIGHT = 700
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+pygame.display.set_caption("The Legend of Zelda: Zelda's Awakening // Stage 1")
+"""
+# introductory text
+print("\033[0;32;48m Zelda!")
+time.sleep(2)
+print("\033[0;32;48m Zelda, come on! Wake up... you need to wake up. Hyrule needs you.")
+time.sleep(2)
+print(
+    "\033[0;37;48m You wake up in the middle of Hyrule Field. You hear a voice calling out to you; it sounds like Link's.")
+time.sleep(2)
+print("\033[0;35;48m Link? Is that you?")
+time.sleep(2)
+
+# first user interaction
+print("--------------------------------------------------------------------------------------------")
+initiation = input("\033[0;37;48m To speak to Link, type his name out: ").lower()
+if initiation == "link":
+    print("--------------------------------------------------------------------------------------------")
+    print("\033[0;32;48m Oh, good! You're awake. Listen closely to what I'm about to tell you.")
+    time.sleep(2)
+    print("\033[0;32;48m Ganon has come back to take over Hyrule, and this time, he’s captured me!")
+    time.sleep(2)
+    print(
+        "\033[0;32;48m You must travel around Hyrule, and collect all of the treasure chests that you see; there are four that I have put around the map.")
+    time.sleep(2)
+    print("\033[0;32;48m When you see one, move towards it to collect the item inside.")
+    time.sleep(2)
+    print("\033[0;32;48m Once you have collected all four, you will be taken to Ganon’s realm. ")
+    time.sleep(2)
+    print(
+        "\033[0;32;48m Make sure to close your Pygame window when you are done. That way, you can prepare for Ganon's fight by opening the second file of the game.")
+    time.sleep(2)
+    print("\033[0;32;48m I will see you then to give you more instructions. Please hurry, we don't have much time.")
+    time.sleep(2)
+    # first exit pathway
+elif initiation != "link":
+    print("\033[0;32;48m Zelda? I suppose you can't hear me... well, when you're ready... I'll be waiting for you.")
+    exit(0)
+    # preparing user for Pygame window to open
+    confirmation = input("Now, tell me Zelda... are you ready? Please say 'yes' if you are.").lower()
+    if confirmation == "yes":
+        print("--------------------------------------------------------------------------------------------")
+        print("\033[0;32;48m Excellent. Now, please, hurry! We have no time to spare.")
+        run = True
+    elif confirmation != "yes":
+        print("--------------------------------------------------------------------------------------------")
+        print(
+            "\033[0;32;48m I see... I suppose you aren't ready. Well, whenever you are ready, I hope you seek to do what is right for Hyrule. We are counting on you, Princess.")
+        time.sleep(3)
+        exit(0)
+
+# closing Pycharm if user does not go through with instructions
+elif initiation != "link":
+    print("--------------------------------------------------------------------------------------------")
+    print(
+        "\033[0;32;48m I see... I suppose you aren't ready. Well, whenever you are ready, I hope you seek to do what is right for Hyrule. We are counting on you, Princess.")
+    time.sleep(3)
+    exit(0)
+"""
+# creating initial spawn location, counter for chests, activation of game (run)
+run = True
+pos_x = 230
+pos_y = 400
+totalChests = 0
+
+
+# function to prepare background music
+
+
+def music():
+    pygame.mixer.music.load("Background Music.mp3")
+    pygame.mixer.music.play(-1, 0.0)
+
+
+# generating images used in game (user, background, chests, hearts)
+zeldaimg = pygame.transform.scale(pygame.image.load('Zelda.png'), (60, 60))
+hyruleimg = pygame.transform.scale(pygame.image.load('Expositional Stage.png'), (900, 700))
+chestimg1 = pygame.transform.scale(pygame.image.load('Treasure Chests.png'), (50, 50))
+chestimg2 = pygame.transform.scale(pygame.image.load('Treasure Chests.png'), (50, 50))
+chestimg3 = pygame.transform.scale(pygame.image.load('Treasure Chests.png'), (50, 50))
+chestimg4 = pygame.transform.scale(pygame.image.load('Treasure Chests.png'), (50, 50))
+heartimg_1 = pygame.transform.scale(pygame.image.load('Heart.png'), (50, 50))
+heartimg_2 = pygame.transform.scale(pygame.image.load('Heart.png'), (50, 50))
+heartimg_3 = pygame.transform.scale(pygame.image.load('Heart.png'), (50, 50))
+heartimg_4 = pygame.transform.scale(pygame.image.load('Heart.png'), (50, 50))
+
+# creating random coordinates for chests to spawn
+# The coordinates in the random function below are mean to establish coorindates between the height and width
+random_x1 = random.randint(150, WIDTH - 100)
+random_y1 = random.randint(100, HEIGHT - 200)
+random_x2 = random.randint(150, WIDTH - 100)
+random_y2 = random.randint(100, HEIGHT - 200)
+random_x3 = random.randint(150, WIDTH - 100)
+random_y3 = random.randint(100, HEIGHT - 200)
+random_x4 = random.randint(150, WIDTH - 100)
+random_y4 = random.randint(100, HEIGHT - 200)
+
+# calling the music function for it to begin playing before and throughout the while loop
+music()
+
+# initializing the main code of the game
+while run:
+    # checking for events from the user
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYDOWN:
+            # creating up/down/left/right
+            # creating gameplay boudnaries based on HEIGHT and WIDTH as defined in the code abvove
+            if event.key == pygame.K_LEFT and pos_x - 25 > 0:
+                pos_x = pos_x - 25
+            if event.key == pygame.K_RIGHT and pos_x + 25 + 60 < WIDTH:
+                pos_x = pos_x + 25
+            if event.key == pygame.K_UP and pos_y - 25 > 0:
+                pos_y = pos_y - 25
+            if event.key == pygame.K_DOWN and pos_y + 25 + 60 < HEIGHT:
+                pos_y = pos_y + 25
+
+    # updating the background screen
+    screen.blit(hyruleimg, (0, 0))
+
+    # creating messages for collection of first chest
+    if (random_x1 - 50 <= pos_x <= random_x1 + 50) and (random_y1 - 50 <= pos_y <= random_y1 + 50):
+        print("You got a bow!")
+        random_x1, random_y1 = (1000, 1000)
+        totalChests += 1
+
+    # creating message for collection of second chest
+    if (random_x2 - 50 <= pos_x <= random_x2 + 50) and random_y2 - 50 <= pos_y <= random_y2 + 50:
+        print("You got a bundle of arrows!")
+        random_x2, random_y2 = (1000, 1000)
+        totalChests += 1
+
+    # creating message for collection of third chest
+    if random_x3 - 50 <= pos_x <= random_x3 + 50 and random_y3 - 50 <= pos_y <= random_y3 + 50:
+        print("You got food!")
+        random_x3, random_y3 = (1000, 1000)
+        totalChests += 1
+
+    # creating message for collection of fourth chest
+    if random_x4 - 50 <= pos_x <= random_x4 + 50 and random_y4 - 50 <= pos_y <= random_y4 + 50:
+        print("You got a fairy!")
+        random_x4, random_y4 = (1000, 1000)
+        totalChests += 1
+
+    # location of images on screen (and where they will render in each frame)
+    screen.blit(zeldaimg, (pos_x, pos_y))
+    screen.blit(chestimg1, (random_x1, random_y1))
+    screen.blit(chestimg2, (random_x2, random_y2))
+    screen.blit(chestimg3, (random_x3, random_y3))
+    screen.blit(chestimg4, (random_x4, random_y4))
+
+    # updating screen with images as user interacts with the game
+    pygame.display.update()
