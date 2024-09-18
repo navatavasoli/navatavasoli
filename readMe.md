@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @navatavasoli!
 - 👀 I’m interested in artificial intelligence and machine learning. 
-- 🌱 I’m currently learning Java and Python 3 programming.
+- 🌱 I’m currently learning MATLAB and SAS.
 - 💞️ I’m looking to collaborate on creating regression analysis applications in SAS or MATLAB.
 
 <!---
